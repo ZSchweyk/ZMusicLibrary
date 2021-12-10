@@ -46,15 +46,14 @@ class Note:
         num_appearances = count_appearances(list(keyboard_without_octaves.values()), note_s) + 1
 
         keyboard_without_octaves[i + 1] = note_s
-        if isinstance(note_s, str):
-            note_s_w_oct = note_s + str(num_appearances)
-        else:
-            note_s_w_oct = []
-            for note in note_s:
-                note_s_w_oct.append(note + str(num_appearances))
+
+        note_s_w_oct = []
+        for note in note_s:
+            note_s_w_oct.append(note + str(num_appearances))
 
         keyboard_with_octaves[i + 1] = note_s_w_oct
 
+    del keyboard_without_octaves
     # ---------------------------------------------------------------------------------------------------------
 
     # --------------------------------- Intervals -------------------------------------------------------------
@@ -70,7 +69,7 @@ class Note:
     def __init__(self, note: str):
         note = note[0].upper() + note[1:]
         for note_num, official_note in self.keyboard_with_octaves.items():
-            if note in official_note and (isinstance(official_note, list) or note == official_note):
+            if note in official_note:
                 self.note = note
                 self.number = note_num
                 self.octave = note[-1]
@@ -92,17 +91,18 @@ class Note:
                     letter_index + num_letters_to_add if operation == "+" else letter_index - num_letters_to_add)
         print("proper_letter:", proper_letter)
 
-        elem_with_accidental_s = self.keyboard_with_octaves[
-            self.number + num_half_steps_to_add if operation == "+" else self.number - num_half_steps_to_add]
+        try:
+            elem_with_accidental_s = self.keyboard_with_octaves[
+                self.number + num_half_steps_to_add if operation == "+" else self.number - num_half_steps_to_add]
+        except KeyError:
+            raise Exception("Note out of bounds.") from None
 
         print("elem_with_accidental_s:", elem_with_accidental_s)
 
-        if isinstance(elem_with_accidental_s, list):
-            for n in elem_with_accidental_s:
-                if proper_letter in n:
-                    return Note(n)
-        else:
-            return Note(elem_with_accidental_s)
+        for n in elem_with_accidental_s:
+            if proper_letter in n:
+                return Note(n)
+
 
     def __radd__(self, intvl: str):
         return self.__add__(intvl)
@@ -116,8 +116,6 @@ class Note:
 
 intervals = ["m2", "M2", "m3", "M3", "P4", "A4", "P5", "m6", "M6", "m7", "M7", "P8"]
 
-print(Note("C#4") + "M3")
+print(Note("C8") + "m2")
 
 
-
-# get_val_with_index(["C", "D", "E", "F", "G", "A", "B"], )
