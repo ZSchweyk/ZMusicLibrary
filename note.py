@@ -1,3 +1,6 @@
+import musthe
+
+
 def fill_in_list(array: list, values_to_replace_with_2d_array: list, value_to_replace):
     count = 0
     while value_to_replace in array:
@@ -18,7 +21,7 @@ def get_val_with_index(array, index):
 
 class Note:
     # -------------------------- Piano Keyboard ------------------------------------------------------------
-    unique_notes = ["A", "", "B", "C", "", "D", "", "E", "F", "", "G", ""]
+    unique_notes = [["G##", "A", "Bbb"], "", ["A##", "B", "Cb"], ["B#", "C", "Dbb"], "", ["C##", "D", "Ebb"], "", ["D##", "E", "Fb"], ["E#", "F", "Gbb"], "", ["F##", "G", "Abb"], ""]
     flats = ["Bb", "Db", "Eb", "Gb", "Ab"]
     sharps = ["A#", "C#", "D#", "F#", "G#"]
     fill_in_list(unique_notes, [sharps, flats], "")
@@ -66,7 +69,7 @@ class Note:
     def __repr__(self):
         return self.note
 
-    def __radd__(self, intvl: str, operation="+"):
+    def __add__(self, intvl: str, operation="+"):
         interval_index = self.intervals.index(intvl)
         num_letters_to_add = self.interval_increments[interval_index]
         num_half_steps_to_add = self.intervals_values[intvl]
@@ -90,14 +93,14 @@ class Note:
         else:
             return Note(elem_with_accidental_s)
 
-    def __add__(self, other: str):
-        return self.__radd__(other)
+    def __radd__(self, intvl: str):
+        return self.__add__(intvl)
 
-    def __sub__(self, other):
-        return self.__radd__(other, operation="-")
+    def __sub__(self, intvl):
+        return self.__add__(intvl, operation="-")
 
-    def __rsub__(self, other):
-        raise Exception("Invalid arithmetic order. \"{}\" must come after Note object.".format(other))
+    def __rsub__(self, intvl):
+        raise Exception("Invalid arithmetic order. \"{}\" must come after Note object.".format(intvl))
 
 
 intervals = ["m2", "M2", "m3", "M3", "P4", "A4", "P5", "m6", "M6", "m7", "M7", "P8"]
