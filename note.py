@@ -1,20 +1,4 @@
-
-def fill_in_list(array: list, values_to_replace_with_2d_array: list, value_to_replace):
-    count = 0
-    while value_to_replace in array:
-        index = array.index(value_to_replace)
-        array[index] = [arr[count] for arr in values_to_replace_with_2d_array]
-        count += 1
-    return array
-
-
-def count_appearances(array, value):
-    return 0 if len(array) == 0 else sum([item == value for item in array])
-
-
-def get_val_with_index(array, index):
-    index = index % len(array)
-    return array[index]
+from UsefulFunctions import *
 
 
 class Note:
@@ -58,8 +42,8 @@ class Note:
 
     # --------------------------------- Intervals -------------------------------------------------------------
     letter_names = ["C", "D", "E", "F", "G", "A", "B"]
-    intervals =           ["m2", "M2", "m3", "M3", "P4", "A4", "P5", "m6", "M6", "m7", "M7", "P8"]
-    interval_increments = [   1,    1,    2,    2,    3,    3,    4,    5,    5,    6,    6,    7]
+    intervals = ["m2", "M2", "m3", "M3", "P4", "A4", "P5", "m6", "M6", "m7", "M7", "P8"]
+    interval_increments = [1, 1, 2, 2, 3, 3, 4, 5, 5, 6, 6, 7]
     intervals_values = {}
     for increment, interval in enumerate(intervals):
         intervals_values[interval] = increment + 1
@@ -88,8 +72,8 @@ class Note:
 
         proper_letter = \
             get_val_with_index(self.letter_names,
-                    letter_index + num_letters_to_add if operation == "+" else letter_index - num_letters_to_add)
-        print("proper_letter:", proper_letter)
+                               letter_index + num_letters_to_add if operation == "+" else letter_index - num_letters_to_add)
+        # print("proper_letter:", proper_letter)
 
         try:
             elem_with_accidental_s = self.keyboard_with_octaves[
@@ -97,12 +81,11 @@ class Note:
         except KeyError:
             raise Exception("Note out of bounds.") from None
 
-        print("elem_with_accidental_s:", elem_with_accidental_s)
+        # print("elem_with_accidental_s:", elem_with_accidental_s)
 
         for n in elem_with_accidental_s:
             if proper_letter in n:
                 return Note(n)
-
 
     def __radd__(self, intvl: str):
         return self.__add__(intvl)
@@ -113,9 +96,5 @@ class Note:
     def __rsub__(self, intvl):
         raise Exception("Invalid arithmetic order. \"{}\" must come after Note object.".format(intvl))
 
-
-intervals = ["m2", "M2", "m3", "M3", "P4", "A4", "P5", "m6", "M6", "m7", "M7", "P8"]
-
-print(Note("C8") + "m2")
 
 
