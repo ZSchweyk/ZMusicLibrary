@@ -1,5 +1,3 @@
-import musthe
-
 
 def fill_in_list(array: list, values_to_replace_with_2d_array: list, value_to_replace):
     count = 0
@@ -21,7 +19,20 @@ def get_val_with_index(array, index):
 
 class Note:
     # -------------------------- Piano Keyboard ------------------------------------------------------------
-    unique_notes = [["G##", "A", "Bbb"], "", ["A##", "B", "Cb"], ["B#", "C", "Dbb"], "", ["C##", "D", "Ebb"], "", ["D##", "E", "Fb"], ["E#", "F", "Gbb"], "", ["F##", "G", "Abb"], ""]
+    unique_notes = [
+        ["G##", "A", "Bbb"],
+        "",
+        ["A##", "B", "Cb"],
+        ["B#", "C", "Dbb"],
+        "",
+        ["C##", "D", "Ebb"],
+        "",
+        ["D##", "E", "Fb"],
+        ["E#", "F", "Gbb"],
+        "",
+        ["F##", "G", "Abb"],
+        ""
+    ]
     flats = ["Bb", "Db", "Eb", "Gb", "Ab"]
     sharps = ["A#", "C#", "D#", "F#", "G#"]
     fill_in_list(unique_notes, [sharps, flats], "")
@@ -78,7 +89,7 @@ class Note:
 
         proper_letter = \
             get_val_with_index(self.letter_names,
-                               letter_index + num_letters_to_add if operation == "+" else letter_index - num_letters_to_add)
+                    letter_index + num_letters_to_add if operation == "+" else letter_index - num_letters_to_add)
         print("proper_letter:", proper_letter)
 
         elem_with_accidental_s = self.keyboard_with_octaves[
