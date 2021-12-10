@@ -42,11 +42,14 @@ class Note:
 
     # --------------------------------- Intervals -------------------------------------------------------------
     letter_names = ["C", "D", "E", "F", "G", "A", "B"]
-    intervals = ["m2", "M2", "m3", "M3", "P4", "A4", "P5", "m6", "M6", "m7", "M7", "P8"]
-    interval_increments = [1, 1, 2, 2, 3, 3, 4, 5, 5, 6, 6, 7]
+    intervals =         ["P1", "m2", "M2", "m3", "M3", "P4", "A4", "D5", "P5", "m6", "M6", "m7", "M7", "P8"]
+    num_half_tones =    [   0,    1,    2,    3,    4,    5,    6,    6,    7,    8,    9,   10,   11,   12]
+    letter_increments = [   0,    1,    1,    2,    2,    3,    3,    4,    4,    5,    5,    6,    6,    7]
+    ##################
+
     intervals_values = {}
-    for increment, interval in enumerate(intervals):
-        intervals_values[interval] = increment + 1
+    for half_tone_num, interval in zip(num_half_tones, intervals):
+        intervals_values[interval] = half_tone_num
 
     # ---------------------------------------------------------------------------------------------------------
 
@@ -64,8 +67,11 @@ class Note:
         return self.note
 
     def __add__(self, intvl: str, operation="+"):
-        interval_index = self.intervals.index(intvl)
-        num_letters_to_add = self.interval_increments[interval_index]
+        try:
+            interval_index = self.intervals.index(intvl)
+        except ValueError:
+            raise Exception("Invalid interval \"{}\".".format(intvl)) from None
+        num_letters_to_add = self.letter_increments[interval_index]
         num_half_steps_to_add = self.intervals_values[intvl]
 
         letter_index = self.letter_names.index(self.note[0])
@@ -96,5 +102,11 @@ class Note:
     def __rsub__(self, intvl):
         raise Exception("Invalid arithmetic order. \"{}\" must come after Note object.".format(intvl))
 
+    def simplify_notation(self):
+        """Returns a new Note object with simplified notation"""
+        note_array = self.keyboard_with_octaves[self.number]
+        return Note(note_array[1] if len(note_array) == 3 else self.note)
 
 
+n = Note("F4")
+print(n + "D5")
