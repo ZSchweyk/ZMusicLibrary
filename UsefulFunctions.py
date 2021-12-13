@@ -14,3 +14,11 @@ def count_appearances(array, value):
 def get_val_with_index(array, index):
     index = index % len(array)
     return array[index]
+
+def index_of(array, elem):
+    array_of_indices = []
+    for i, sub_elem in enumerate(array):
+        if elem == sub_elem:
+            array_of_indices.append(i)
+    return array_of_indices
+

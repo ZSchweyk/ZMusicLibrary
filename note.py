@@ -42,9 +42,9 @@ class Note:
 
     # --------------------------------- Intervals -------------------------------------------------------------
     letter_names = ["C", "D", "E", "F", "G", "A", "B"]
-    intervals =         ["P1", "m2", "M2", "m3", "M3", "P4", "A4", "D5", "P5", "m6", "M6", "m7", "M7", "P8"]
-    num_half_tones =    [   0,    1,    2,    3,    4,    5,    6,    6,    7,    8,    9,   10,   11,   12]
-    letter_increments = [   0,    1,    1,    2,    2,    3,    3,    4,    4,    5,    5,    6,    6,    7]
+    intervals =         ["P1", "m2", "M2", "m3", "M3", "P4", "A4", "D5", "P5", "A5", "m6", "M6", "m7", "M7", "P8"]
+    num_half_tones =    [   0,    1,    2,    3,    4,    5,    6,    6,    7,    8,    8,    9,   10,   11,   12]
+    letter_increments = [   0,    1,    1,    2,    2,    3,    3,    4,    4,    4,    5,    5,    6,    6,    7]
     ##################
 
     intervals_values = {}
@@ -107,6 +107,24 @@ class Note:
         note_array = self.keyboard_with_octaves[self.number]
         return Note(note_array[1] if len(note_array) == 3 else self.note)
 
+    def __eq__(self, other):
+        return self.number == other.number
 
-n = Note("F4")
-print(n + "D5")
+    def __ne__(self, other):
+        return self.number != other.number
+
+    def __gt__(self, other):
+        return self.number > other.number
+
+    def __lt__(self, other):
+        return self.number < other.number
+
+    def __ge__(self, other):
+        return self.number >= other.number
+
+    def __le__(self, other):
+        return self.number <= other.number
+
+    def compare_with(self, note):
+        difference = self.number - note.number
+
