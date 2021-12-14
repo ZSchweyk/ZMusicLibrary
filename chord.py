@@ -46,11 +46,30 @@ class Chord:
         else:
             raise Exception("{} is of incorrect type. Must be str or Note, not {}".format(item, type(item)))
 
+    def __getitem__(self, i):
+        return self.chord[i]
+
+    def __delitem__(self, i):
+        """Delete an item"""
+        del self.chord[i]
+
+    def __setitem__(self, i, val):
+        # optional: self._acl_check(val)
+        self.chord[i] = val
+
+    def insert(self, i, val):
+        # optional: self._acl_check(val)
+        self.chord.insert(i, val)
+
+    def append(self, val):
+        self.insert(len(self.chord), val)
+
+    def __len__(self):
+        return len(self.chord)
+
     def __str__(self):
         return str(self.chord)
 
     def __repr__(self):
         return "<{} {}>".format(self.__class__.__name__, self.chord)
 
-c = Chord("C4", "Min")
-print(c)

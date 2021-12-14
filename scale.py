@@ -37,6 +37,13 @@ class Scale:
         # optional: self._acl_check(val)
         self.scale[i] = val
 
+    def insert(self, i, val):
+        # optional: self._acl_check(val)
+        self.scale.insert(i, val)
+
+    def append(self, val):
+        self.insert(len(self.scale), val)
+
     def __len__(self):
         return len(self.scale)
 
@@ -46,9 +53,3 @@ class Scale:
     def __repr__(self):
         return "<{} {}>".format(self.__class__.__name__, self.scale)
 
-
-
-
-s = Scale("F#4", "HMin")
-s[0] = Note("Gb4")
-print(s)

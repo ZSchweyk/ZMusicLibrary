@@ -127,4 +127,5 @@ class Note:
 
     def compare_with(self, note):
         difference = self.number - note.number
+        # Not done yet
 
