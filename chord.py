@@ -36,7 +36,7 @@ class Chord:
             self.chord.append(self.chord[len(self.chord) - 3] + "P8")
 
     def __iter__(self):
-        return iter(self.scale)
+        return iter(self.chord)
 
     def __contains__(self, item):
         if isinstance(item, str):
@@ -46,8 +46,11 @@ class Chord:
         else:
             raise Exception("{} is of incorrect type. Must be str or Note, not {}".format(item, type(item)))
 
-    def __repr__(self):
-        t = str(type(self))
-        start = t.index(".") + 1
-        return t[start:-2] + "(" + str(self.chord) + ")"
+    def __str__(self):
+        return str(self.chord)
 
+    def __repr__(self):
+        return "<{} {}>".format(self.__class__.__name__, self.chord)
+
+c = Chord("C4", "Min")
+print(c)

@@ -26,10 +26,29 @@ class Scale:
     def __iter__(self):
         return iter(self.scale)
 
-    def __repr__(self):
+    def __getitem__(self, i):
+        return self.scale[i]
+
+    def __delitem__(self, i):
+        """Delete an item"""
+        del self.scale[i]
+
+    def __setitem__(self, i, val):
+        # optional: self._acl_check(val)
+        self.scale[i] = val
+
+    def __len__(self):
+        return len(self.scale)
+
+    def __str__(self):
         return str(self.scale)
+
+    def __repr__(self):
+        return "<{} {}>".format(self.__class__.__name__, self.scale)
+
+
 
 
 s = Scale("F#4", "HMin")
-for note in s:
-    print(note)
+s[0] = Note("Gb4")
+print(s)

@@ -42,9 +42,9 @@ class Note:
 
     # --------------------------------- Intervals -------------------------------------------------------------
     letter_names = ["C", "D", "E", "F", "G", "A", "B"]
-    intervals =         ["P1", "m2", "M2", "m3", "M3", "P4", "A4", "D5", "P5", "A5", "m6", "M6", "D7", "m7", "M7", "P8"]
-    num_half_tones =    [   0,    1,    2,    3,    4,    5,    6,    6,    7,    8,    8,    9,    9,   10,   11,   12]
-    letter_increments = [   0,    1,    1,    2,    2,    3,    3,    4,    4,    4,    5,    5,    6,    6,    6,    7]
+    intervals = ["P1", "m2", "M2", "m3", "M3", "P4", "A4", "D5", "P5", "A5", "m6", "M6", "D7", "m7", "M7", "P8"]
+    num_half_tones = [0, 1, 2, 3, 4, 5, 6, 6, 7, 8, 8, 9, 9, 10, 11, 12]
+    letter_increments = [0, 1, 1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 6, 6, 6, 7]
     ##################
 
     intervals_values = {}
@@ -63,8 +63,11 @@ class Note:
                 return
         raise Exception("Invalid Note: \"{}\"".format(note))
 
+    def __str__(self):
+        return str(self.note)
+
     def __repr__(self):
-        return "Note(" + self.note + ")"
+        return "<{} {}>".format(self.__class__.__name__, self.note)
 
     def __add__(self, intvl: str, operation="+"):
         try:
@@ -124,3 +127,4 @@ class Note:
 
     def compare_with(self, note):
         difference = self.number - note.number
+
