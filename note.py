@@ -42,9 +42,9 @@ class Note:
 
     # --------------------------------- Intervals -------------------------------------------------------------
     letter_names = ["C", "D", "E", "F", "G", "A", "B"]
-    intervals =         ["P1", "m2", "M2", "m3", "M3", "P4", "A4", "D5", "P5", "A5", "m6", "M6", "m7", "M7", "P8"]
-    num_half_tones =    [   0,    1,    2,    3,    4,    5,    6,    6,    7,    8,    8,    9,   10,   11,   12]
-    letter_increments = [   0,    1,    1,    2,    2,    3,    3,    4,    4,    4,    5,    5,    6,    6,    7]
+    intervals =         ["P1", "m2", "M2", "m3", "M3", "P4", "A4", "D5", "P5", "A5", "m6", "M6", "D7", "m7", "M7", "P8"]
+    num_half_tones =    [   0,    1,    2,    3,    4,    5,    6,    6,    7,    8,    8,    9,    9,   10,   11,   12]
+    letter_increments = [   0,    1,    1,    2,    2,    3,    3,    4,    4,    4,    5,    5,    6,    6,    6,    7]
     ##################
 
     intervals_values = {}
@@ -61,10 +61,10 @@ class Note:
                 self.number = note_num
                 self.octave = note[-1]
                 return
-        # raise Exception("Invalid Note > \"{}\"".format(note))
+        raise Exception("Invalid Note: \"{}\"".format(note))
 
     def __repr__(self):
-        return self.note
+        return "Note(" + self.note + ")"
 
     def __add__(self, intvl: str, operation="+"):
         try:
@@ -79,15 +79,12 @@ class Note:
         proper_letter = \
             get_val_with_index(self.letter_names,
                                letter_index + num_letters_to_add if operation == "+" else letter_index - num_letters_to_add)
-        # print("proper_letter:", proper_letter)
 
         try:
             elem_with_accidental_s = self.keyboard_with_octaves[
                 self.number + num_half_steps_to_add if operation == "+" else self.number - num_half_steps_to_add]
         except KeyError:
             raise Exception("Note out of bounds.") from None
-
-        # print("elem_with_accidental_s:", elem_with_accidental_s)
 
         for n in elem_with_accidental_s:
             if proper_letter in n:
@@ -127,4 +124,3 @@ class Note:
 
     def compare_with(self, note):
         difference = self.number - note.number
-
