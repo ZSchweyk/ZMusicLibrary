@@ -47,56 +47,26 @@ class Note:
     letter_increments = [   0,    1,    1,    2,    2,    3,    3,    4,    4,    4,    5,    5,    6,    6,    6]
     ##################
 
-    # Work on this!
-    # final_intervals = []
-    # final_num_half_tones = []
-    # final_letter_increments = []
-    # for i in range(1, 9):
+    final_intervals = []
+    final_num_half_tones = []
+    final_letter_increments = []
+    continue_appending = True
+    for i in range(0, 8):
+        for interval, half_tone, increment in zip(intervals, num_half_tones, letter_increments):
+            if continue_appending:
+                result = interval[:-1] + str(int(interval[-1]) + i * 7)
+                final_intervals.append(result)
+                final_letter_increments.append(increment + i * 7)
+                if result == "m52":
+                    continue_appending = False
+            result = half_tone + i * 12
+            if result <= 87:
+                final_num_half_tones.append(result)
 
 
-    # final_intervals = []
-    # not_unique_intervals = []
-    #
-    # final_num_half_tones = []
-    # not_unique_half_tones = []
-    #
-    # final_letter_increments = []
-    # not_unique_letter_increments = []
-    #
-    # for i in range(88):
-    #     interval_index = i % len(intervals)
-    #     interval = intervals[interval_index]
-    #     half_tone = num_half_tones[interval_index]
-    #     increment = letter_increments[interval_index]
-    #
-    #     not_unique_intervals.append(interval)
-    #     not_unique_half_tones.append(half_tone)
-    #     not_unique_letter_increments.append(increment)
-    #
-    #     if interval not in final_intervals:
-    #         final_intervals.append(interval)
-    #     else:
-    #         interval = interval[:-1] + str(int(interval[-1]) + 7 * count_appearances(not_unique_intervals, interval))
-    #         final_intervals.append(interval)
-    #
-    #     if half_tone not in final_num_half_tones:
-    #         final_num_half_tones.append(half_tone)
-    #     else:
-    #         half_tone = half_tone + 12 * count_appearances(not_unique_half_tones, half_tone)
-    #         final_num_half_tones.append(half_tone)
-    #
-    #     if increment not in final_letter_increments:
-    #         final_letter_increments.append(increment)
-    #     else:
-    #         increment = increment + 8 * count_appearances(not_unique_letter_increments, increment)
-    #         final_letter_increments.append(increment)
-
-
-    # print("final_intervals:", final_intervals)
-    # print("final_num_half_tones:", final_num_half_tones)
-    # print("final_letter_increments:", final_letter_increments)
-
-
+    intervals = final_intervals
+    num_half_tones = final_num_half_tones
+    letter_increments = final_letter_increments
 
     intervals_values = {}
     for half_tone_num, interval in zip(num_half_tones, intervals):
@@ -129,11 +99,18 @@ class Note:
 
     def __add__(self, intvl: str, operation="+"):
         try:
-            interval_index = self.intervals.index(intvl)
+            if "-" in intvl:
+                intvl = intvl[1:]
+                interval_index = self.intervals.index(intvl)
+                boolean = True
+            else:
+                interval_index = self.intervals.index(intvl)
+                boolean = False
         except ValueError:
             raise Exception("Invalid interval \"{}\".".format(intvl)) from None
-        num_letters_to_add = self.letter_increments[interval_index]
-        num_half_steps_to_add = self.intervals_values[intvl]
+        # num_letters_to_add = get_val_with_index(self.letter_increments, interval_index)
+        num_letters_to_add = self.letter_increments[interval_index] if not boolean else -1 * self.letter_increments[interval_index]
+        num_half_steps_to_add = self.intervals_values[intvl] if not boolean else -1 * self.intervals_values[intvl]
 
         letter_index = self.letter_names.index(self.letter)
 
@@ -184,13 +161,13 @@ class Note:
         return self.number <= other.number
 
     def compare_with(self, note):
-        semitone_difference = note.number - self.number
-        letter_difference = self.letter_names.index(note.letter) - self.letter_names.index(self.letter)
-        print(semitone_difference)
+        if self.number <= note.number:
+            for interval in self.intervals:
+                if self + interval == note:
+                    return interval
+        else:
+            for interval in self.intervals:
+                if self - interval == note:
+                    return "-" + interval
 
-        # Not done yet
 
-
-n1 = Note("C4")
-n2 = Note("E4")
-n1.compare_with(n2)
