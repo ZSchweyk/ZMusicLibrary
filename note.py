@@ -42,10 +42,61 @@ class Note:
 
     # --------------------------------- Intervals -------------------------------------------------------------
     letter_names = ["C", "D", "E", "F", "G", "A", "B"]
-    intervals =         ["P1", "m2", "M2", "m3", "M3", "P4", "A4", "D5", "P5", "A5", "m6", "M6", "D7", "m7", "M7", "P8"]
-    num_half_tones =    [   0,    1,    2,    3,    4,    5,    6,    6,    7,    8,    8,    9,    9,   10,   11,   12]
-    letter_increments = [   0,    1,    1,    2,    2,    3,    3,    4,    4,    4,    5,    5,    6,    6,    6,    7]
+    intervals =         ["P1", "m2", "M2", "m3", "M3", "P4", "A4", "D5", "P5", "A5", "m6", "M6", "D7", "m7", "M7"]
+    num_half_tones =    [   0,    1,    2,    3,    4,    5,    6,    6,    7,    8,    8,    9,    9,   10,   11]
+    letter_increments = [   0,    1,    1,    2,    2,    3,    3,    4,    4,    4,    5,    5,    6,    6,    6]
     ##################
+
+    # Work on this!
+    # final_intervals = []
+    # final_num_half_tones = []
+    # final_letter_increments = []
+    # for i in range(1, 9):
+
+
+    # final_intervals = []
+    # not_unique_intervals = []
+    #
+    # final_num_half_tones = []
+    # not_unique_half_tones = []
+    #
+    # final_letter_increments = []
+    # not_unique_letter_increments = []
+    #
+    # for i in range(88):
+    #     interval_index = i % len(intervals)
+    #     interval = intervals[interval_index]
+    #     half_tone = num_half_tones[interval_index]
+    #     increment = letter_increments[interval_index]
+    #
+    #     not_unique_intervals.append(interval)
+    #     not_unique_half_tones.append(half_tone)
+    #     not_unique_letter_increments.append(increment)
+    #
+    #     if interval not in final_intervals:
+    #         final_intervals.append(interval)
+    #     else:
+    #         interval = interval[:-1] + str(int(interval[-1]) + 7 * count_appearances(not_unique_intervals, interval))
+    #         final_intervals.append(interval)
+    #
+    #     if half_tone not in final_num_half_tones:
+    #         final_num_half_tones.append(half_tone)
+    #     else:
+    #         half_tone = half_tone + 12 * count_appearances(not_unique_half_tones, half_tone)
+    #         final_num_half_tones.append(half_tone)
+    #
+    #     if increment not in final_letter_increments:
+    #         final_letter_increments.append(increment)
+    #     else:
+    #         increment = increment + 8 * count_appearances(not_unique_letter_increments, increment)
+    #         final_letter_increments.append(increment)
+
+
+    # print("final_intervals:", final_intervals)
+    # print("final_num_half_tones:", final_num_half_tones)
+    # print("final_letter_increments:", final_letter_increments)
+
+
 
     intervals_values = {}
     for half_tone_num, interval in zip(num_half_tones, intervals):
@@ -58,6 +109,13 @@ class Note:
         for note_num, official_note in self.keyboard_with_octaves.items():
             if note in official_note:
                 self.note = note
+                self.letter = note[0]
+                if len(note) == 2:
+                    self.accidental = ""
+                elif len(note) == 3:
+                    self.accidental = note[1]
+                else:
+                    self.accidental = note[1:3]
                 self.number = note_num
                 self.octave = note[-1]
                 return
@@ -77,7 +135,7 @@ class Note:
         num_letters_to_add = self.letter_increments[interval_index]
         num_half_steps_to_add = self.intervals_values[intvl]
 
-        letter_index = self.letter_names.index(self.note[0])
+        letter_index = self.letter_names.index(self.letter)
 
         proper_letter = \
             get_val_with_index(self.letter_names,
@@ -87,7 +145,7 @@ class Note:
             elem_with_accidental_s = self.keyboard_with_octaves[
                 self.number + num_half_steps_to_add if operation == "+" else self.number - num_half_steps_to_add]
         except KeyError:
-            raise Exception("Note out of bounds.") from None
+            raise Exception("Note {} + {} is out of bounds.".format(self.note, intvl)) from None
 
         for n in elem_with_accidental_s:
             if proper_letter in n:
@@ -126,6 +184,13 @@ class Note:
         return self.number <= other.number
 
     def compare_with(self, note):
-        difference = self.number - note.number
+        semitone_difference = note.number - self.number
+        letter_difference = self.letter_names.index(note.letter) - self.letter_names.index(self.letter)
+        print(semitone_difference)
+
         # Not done yet
 
+
+n1 = Note("C4")
+n2 = Note("E4")
+n1.compare_with(n2)
