@@ -95,7 +95,7 @@ class Chord:
         return len(self.chord)
 
     def __str__(self):
-        return str(self.chord)
+        return "Chord(" + str(self.chord) + ")"
 
     def __repr__(self):
         return "<{} {}>".format(self.__class__.__name__, self.chord)

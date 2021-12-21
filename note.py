@@ -92,7 +92,7 @@ class Note:
         raise Exception("Invalid Note: \"{}\"".format(note))
 
     def __str__(self):
-        return str(self.note)
+        return "Note(" + str(self.note) + ")"
 
     def __repr__(self):
         return "<{} {}>".format(self.__class__.__name__, self.note)
