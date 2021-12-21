@@ -39,5 +39,9 @@ n = Note("C##4")
 print(n.simplify_notation()) # prints Note(D4)
 ```
 ##Chord
-#####Documentation comming Soon...
+Create a chord object:
+```
+c = Chord("F4", "Min")
+print(c) # prints Chord([Note(F4), Note(Ab4), Note(C5)])
+```
 #

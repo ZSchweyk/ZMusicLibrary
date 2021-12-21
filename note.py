@@ -95,7 +95,8 @@ class Note:
         return "Note(" + str(self.note) + ")"
 
     def __repr__(self):
-        return "<{} {}>".format(self.__class__.__name__, self.note)
+        # return "<{} {}>".format(self.__class__.__name__, self.note)
+        return self.__str__()
 
     def __add__(self, intvl: str, operation="+"):
         try:

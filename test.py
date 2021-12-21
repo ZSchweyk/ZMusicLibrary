@@ -5,5 +5,5 @@ c = Chord("F4", "Min")
 print(c)
 
 n = Note("C##4")
-print(n.simplify_notation())
+print(n)
 
