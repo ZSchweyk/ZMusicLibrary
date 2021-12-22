@@ -51,28 +51,20 @@ class Chord:
         # 4: 1
         # 5: 2
 
-        # if not unique:
-        # chord_copy.append(chord_copy[len(chord_copy) - 3] + "P8")
-        # chord_copy.pop(0)
-
         chord_copy = self.chord.copy()
         unique_letters = []
-        is_unique = True
+        item_to_append = 0
         for note in chord_copy:
             if note.letter not in unique_letters:
                 unique_letters.append(note.letter)
             else:
-                is_unique = False
+                item_to_append = -3
+                break
 
-        if is_unique:
-            for inversion in range(inversion_num):
-                # print("appending", self.modified_chord[len(self.modified_chord) - 3] + "P8")
-                chord_copy.append(chord_copy[0] + "P8")
-                chord_copy.pop(0)
-        else:
-            for inversion in range(inversion_num):
-                chord_copy.append(chord_copy[len(chord_copy) - 3] + "P8")
-                chord_copy.pop(0)
+        for inversion in range(inversion_num):
+            chord_copy.append(chord_copy[item_to_append] + "P8")
+            chord_copy.pop(0)
+
         return Chord(list_of_notes=chord_copy)
 
     def __iter__(self):
