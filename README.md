@@ -8,6 +8,9 @@ Create a note object:
 n = Note("C4")
 ```
 Add an interval: returns a Note object
+####
+All the fundamental intervals. Includes intervals in greater octaves as well. 
+* "P1", "A1", "m2", "M2", "A2", "m3", "M3", "P4", "A4", "D5", "P5", "A5", "m6", "M6", "A6", "D7", "m7", "M7"
 ```
 n1 = Note("F#3") + "M2" # add a major 2nd (G#3)
 n2 = Note("A6") - "P4" # subtract a perfect 4th (E5)
@@ -131,6 +134,7 @@ Here are the following scale types, and the intervals that they consist of:
 ####
 * "Maj": ["P1", "M2", "M3", "P4", "P5", "M6", "M7"]
 * "Min": ["P1", "M2", "m3", "P4", "P5", "m6", "m7"]
+* "Chromatic": ["P1", "A1", "M2", "A2", "M3", "P4", "A4", "P5", "A5", "M6", "A6", "M7"],
 #####
 * "HMin": ["P1", "M2", "m3", "P4", "P5", "m6", "M7"]
 * "MMin": ["P1", "M2", "m3", "P4", "P5", "M6", "M7"]
