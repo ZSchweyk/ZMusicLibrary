@@ -1,5 +1,13 @@
 # MusicLibrary
 A simple and intuitive music library to create notes, chords and all the different inversions associated with them, scales, intervals, and so much more.
+
+Created by Zeyn Schweyk. Contact zschweyk@gmail.com for any questions.
+
+Install:
+```
+pip install ZMusicLibrary
+```
+
 ###
 ##Note
 
