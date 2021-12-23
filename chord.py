@@ -1,5 +1,5 @@
-from note import Note
-from chord_types import types_of_chords
+from .note import Note
+from .chord_types import types_of_chords
 
 
 class Chord:

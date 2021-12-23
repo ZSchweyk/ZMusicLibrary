@@ -1,4 +1,4 @@
-from UsefulFunctions import *
+from .UsefulFunctions import *
 
 
 class Note:

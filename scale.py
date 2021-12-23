@@ -1,5 +1,5 @@
-from note import Note
-from scale_types import types_of_scales
+from .note import Note
+from .scale_types import types_of_scales
 
 
 class Scale:
