@@ -9,7 +9,8 @@ pip install ZMusicLibrary
 ```
 
 ###
-##Note
+Note
+=
 
 Create a note object:
 ```
@@ -50,7 +51,8 @@ n = Note("C##4")
 print(n.simplify_notation()) # prints Note(D4)
 ```
 ###
-##Chord
+Chord
+=
 Create a pre-defined chord object:
 ####
 Here are the following chord types, and the intervals that they consist of:
@@ -135,7 +137,8 @@ print(c1 != c2) # True
 ```
 
 ###
-##Scale
+Scale
+=
 Create a pre-defined scale object:
 ####
 Here are the following scale types, and the intervals that they consist of:
