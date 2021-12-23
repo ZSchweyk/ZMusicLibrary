@@ -1,11 +1,13 @@
-from note import Note
+from scale import Scale
 from chord import Chord
+from note import Note
 
-c = Chord(chord_type="Min", bass_note="C4")
-c = c.to_n_number_notes(5)
-print("root chord:", c)
-print(c.inversion(1))
-print(c.inversion(2))
+s1 = Scale(scale_type="MinBlues", start_note="C4")
+s2 = Scale(scale_type="Lydian", start_note="D4")
 
-
-
+print(s1 < s2) # True
+print(s1 <= s2) # True
+print(s1 > s2) # False
+print(s1 >= s2) # False
+print(s1 == s2) # False
+print(s1 != s2) # True
